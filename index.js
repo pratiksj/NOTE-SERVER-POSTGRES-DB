@@ -2,11 +2,16 @@ const express = require("express");
 const app = express();
 const { PORT } = require("./utils/config");
 const { connectToDatabase } = require("./utils/db");
+
 const notesRouter = require("./controllers/notes");
+const usersRouter = require("./controllers/user");
+const loginRouter = require("./controllers/login");
 
 app.use(express.json());
 
 app.use("/api/notes", notesRouter);
+app.use("/api/users", usersRouter);
+app.use("/api/login", loginRouter);
 
 //const PORT = process.env.PORT || 3001;
 // app.listen(PORT, () => {
