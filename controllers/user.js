@@ -22,16 +22,17 @@ router.get("/", async (req, res) => {
           attributes: ["name"],
         },
       },
-      // {
-      //   model: Team,
-      //   attributes: ["name", "id"],
-      //   through: {
-      //     attributes: ["id"],
-      //   },
-      // },
+      {
+        model: Team,
+        attributes: ["name", "id"],
+        through: {
+          attributes: ["id"],
+        },
+      },
     ],
   });
-  res.json(users);
+  let userWithNotes = await User.with_notes(0);
+  res.json(...users, userWithNotes);
 });
 
 router.post("/", async (req, res) => {
