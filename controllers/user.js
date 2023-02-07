@@ -4,7 +4,7 @@ const { User, Note, Team } = require("../models");
 const { tokenExtractor } = require("../utils/middleware");
 
 router.get("/", async (req, res) => {
-  const users = await User.scope("disabled").findAll({
+  const users = await User.findAll({
     include: [
       {
         model: Note,
@@ -57,7 +57,8 @@ router.get("/:id", async (req, res) => {
         joinTableAttributes: [],
       });
     }
-    res.json({ ...user.toJSON(), teams });
+    let noteNumber = await user.number_of_notes();
+    res.json({ ...user.toJSON(), noteNumber, teams });
     // res.json({
     //   username: user.username,
     //   name: user.name,
