@@ -4,7 +4,7 @@ const { User, Note, Team } = require("../models");
 const { tokenExtractor } = require("../utils/middleware");
 
 router.get("/", async (req, res) => {
-  const users = await User.findAll({
+  const users = await User.scope("admin").findAll({
     include: [
       {
         model: Note,
